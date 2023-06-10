@@ -1,4 +1,4 @@
-package com.example.currencyconverter.ContryCurrency
+package com.example.currencyconverter.utils
 
 // Create a class to store the map.
 class Currencies {

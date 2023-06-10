@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.currencyconverter.ContryCurrency.Currencies
+import com.example.currencyconverter.utils.Currencies
 import com.example.currencyconverter.R
 
 

@@ -35,7 +35,7 @@ fun CurrencySelector(
     selectedValue: (String) -> Unit
 ) {
     val selectState = remember { mutableStateOf(false) }
-    val selectedValue = remember { mutableStateOf("") }
+    val selectedValue1 = remember { mutableStateOf("") }
     val countries = Currencies().countries
 
     Column(modifier = Modifier
@@ -49,7 +49,7 @@ fun CurrencySelector(
                 .clickable { selectState.value = !selectState.value }
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(10.dp)) {
-                Text(text = selectedValue.value, fontSize = 20.sp)
+                Text(text = selectedValue1.value, fontSize = 20.sp)
                 Spacer(modifier = Modifier.weight(0.1f))
                 Image(painter = painterResource(id = R.drawable.arrow_down_black), contentDescription = "")
                 DropdownMenu(expanded = selectState.value, onDismissRequest = { selectState.value = false }) {
@@ -57,8 +57,8 @@ fun CurrencySelector(
                         DropdownMenuItem(
                             text = { Text(text = "${it.key} - ${it.value}") },
                             onClick = {
-                                selectedValue.value = it.value
-                                selectedValue(it.key)
+                                selectedValue1.value = it.value
+                                selectedValue(it.value)
                                 selectState.value = false
                             }
                         )

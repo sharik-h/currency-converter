@@ -12,27 +12,21 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.currencyconverter.data.MainViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun conversionPage() {
+fun conversionPage(viewModel: MainViewModel) {
 
-    var selectedFrom = remember { mutableStateOf("") }
-    var selectedTo = remember { mutableStateOf("") }
-    var amount = remember { mutableStateOf("0.00") }
-    var exchValue = remember { mutableStateOf("0.00") }
+
 
     Column(
         modifier = Modifier
@@ -49,7 +43,7 @@ fun conversionPage() {
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = exchValue.value,
+            text = viewModel.exchValue.value,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )
@@ -60,8 +54,8 @@ fun conversionPage() {
             textAlign = TextAlign.Left
         )
         OutlinedTextField(
-            value = amount.value,
-            onValueChange = { amount.value = it },
+            value = viewModel.amount.value,
+            onValueChange = { viewModel.setValue("amount", it) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(10.dp))
@@ -69,19 +63,25 @@ fun conversionPage() {
             CurrencySelector(
                 modifier = Modifier.weight(0.5f),
                 fromOrTo = "From",
-                selectedValue = { selectedFrom.value = it }
+                selectedValue = { viewModel.setValue("selectedFrom", it) }
             )
             CurrencySelector(
                 modifier = Modifier.weight(0.5f),
                 fromOrTo = "To",
-                selectedValue = { selectedTo.value = it },
+                selectedValue = { viewModel.setValue("selectedTo", it) },
             )
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { viewModel.getExchgRates() },
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(text = "CONVERT", fontSize = 20.sp)
+        }
+        Button(
+            onClick = { viewModel.printresponse() },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = "showresponse", fontSize = 20.sp)
         }
         Spacer(modifier = Modifier.weight(0.5f))
     }
